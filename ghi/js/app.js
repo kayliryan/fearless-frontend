@@ -1,15 +1,17 @@
 
-function createCard(name, description, pictureUrl, start, end) {
+function createCard(name, description, pictureUrl, start, end, location) {
     return `
     <div class = ".card-columns">
       <div class="card shadow p-3 mb-5 bg-white rounded d-inline-flex p-2">
         <img src="${pictureUrl}" class="card-img-top">
         <div class="card-body">
           <h5 class="card-title">${name}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">${location}</h6>
           <p class="card-text">${description}</p>
         </div>
-        <footer style="background-color:#E8E8E8">${start} - ${end}</footer>
-      </div>
+        <div class="card-footer">
+            <small class="text-muted">${start} - ${end}</small>
+        </div>
     </div>
     `;
   }
@@ -32,13 +34,14 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const name = details.conference.name;
                     const description = details.conference.description;
                     const pictureUrl = details.conference.location.picture_url;
+                    const location = details.conference.location.name;
                     const startDate = details.conference.starts;
                     const endDate = details.conference.ends;
                     let date1 = new Date(startDate); 
                     let date2 = new Date(endDate);
                     let start = (date1.getMonth()+1) + "/" + (date1.getDate()) + "/" + (date1.getFullYear());
                     let end = (date2.getMonth()+1) + "/" + (date2.getDate()) + "/" + (date2.getFullYear());
-                    const html = createCard(name, description, pictureUrl, start, end);
+                    const html = createCard(name, description, pictureUrl, start, end, location);
                     const column3 = document.querySelector('.row');
                     column3.innerHTML += html;
                     }
