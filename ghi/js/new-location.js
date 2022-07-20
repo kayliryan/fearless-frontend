@@ -1,5 +1,20 @@
 window.addEventListener('DOMContentLoaded', async () => {
 
+    const url = 'http://localhost:8000/api/states/';
+    const response = await fetch(url);
+
+    if (response.ok) {
+        const data = await response.json();
+        let stateTag = document.getElementById('state');
+
+        for (let state of data.states) {
+            let option = document.createElement("option");
+            option.value = state.abbreviation;
+            option.innerHTML = state.state;
+            stateTag.appendChild(option);
+        }
+    }
+
     let formTag = document.getElementById('create-location-form'); //Our form element
     formTag.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -17,24 +32,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (response.ok) {
             formTag.reset();
             const newLocation = await response.json();
-            console.log(newLocation);
         }
     });
 
-
-    const url = 'http://localhost:8000/api/states/';
-    const response = await fetch(url);
-  
-    if (response.ok) {
-        const data = await response.json();
-        let stateTag = document.getElementById('state');
-
-        for (let state of data.states) {
-            let option = document.createElement("option");
-            option.value = state.abbreviation;
-            option.innerHTML = state.state;
-            stateTag.appendChild(option);
-      }
-    }
-  
-  });
+});
