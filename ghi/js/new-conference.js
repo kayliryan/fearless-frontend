@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         event.preventDefault();
         let formData = new FormData(formTag);
         let json = JSON.stringify(Object.fromEntries(formData));
-        console.log(json);
+        
         let conferenceUrl = 'http://localhost:8000/api/conferences/';
         let fetchConfig = {
             method: "post",
@@ -32,7 +32,6 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (response.ok) {
             formTag.reset();
             const newConference = await response.json();
-            console.log(newConference);
         }
 
     });
