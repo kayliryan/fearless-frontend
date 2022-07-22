@@ -15,6 +15,8 @@ class AttendeeListEncoder(ModelEncoder):
     model = Attendee
     properties = ["name"]
 
+    def get_extra_data(self, o):
+        return {"conference": o.conference.name}
 
 class AttendeeDetailEncoder(ModelEncoder):
     model = Attendee
@@ -56,7 +58,10 @@ def api_list_attendees(request, conference_vo_id=None):
     }
     """
     if request.method == "GET":
-        attendees = Attendee.objects.filter(conference=conference_vo_id)
+        if conference_vo_id == None:
+            attendees = Attendee.objects.all()
+        else:
+            attendees = Attendee.objects.filter(conference=conference_vo_id)
         return JsonResponse(
             {"attendees": attendees},
             encoder=AttendeeListEncoder,
@@ -66,8 +71,7 @@ def api_list_attendees(request, conference_vo_id=None):
 
         # Get the Conference object and put it in the content dict
         try:
-            conference_href = content["conference"]
-            conference = ConferenceVO.objects.get(import_href=conference_href)
+            conference = ConferenceVO.objects.get(id=conference_vo_id)
             content["conference"] = conference
         except ConferenceVO.DoesNotExist:
             return JsonResponse(
