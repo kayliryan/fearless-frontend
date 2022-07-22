@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             let successTag = document.getElementById('success-message');
             successTag.classList.remove('d-none');
             formTag.classList.add('d-none');
-            const newPresentation = await response.json();
+            const newAttendee = await response.json();
         }
 
     });
