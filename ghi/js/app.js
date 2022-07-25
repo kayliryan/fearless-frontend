@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', async () => {
             column.innerHTML += html;
         } else {
             const data = await response.json();
-            
+            let count = 0
             for (let conference of data.conferences) {
                 const detailUrl = `http://localhost:8000${conference.href}`;
                 const detailResponse = await fetch(detailUrl);
@@ -44,13 +44,19 @@ window.addEventListener('DOMContentLoaded', async () => {
                     const location = details.conference.location.name;
                     const startDate = details.conference.starts;
                     const endDate = details.conference.ends;
-                    let date1 = new Date(startDate); 
-                    let date2 = new Date(endDate);
-                    let start = (date1.getMonth()+1) + "/" + (date1.getDate()) + "/" + (date1.getFullYear());
-                    let end = (date2.getMonth()+1) + "/" + (date2.getDate()) + "/" + (date2.getFullYear());
+                    let start = new Date(startDate).toLocaleDateString();
+                    let end = new Date(endDate).toLocaleDateString();
+                    //Below works but above is more concise
+                    // let date1 = new Date(startDate); 
+                    // let date2 = new Date(endDate);
+                    // let start = (date1.getMonth()+1) + "/" + (date1.getDate()) + "/" + (date1.getFullYear());
+                    // let end = (date2.getMonth()+1) + "/" + (date2.getDate()) + "/" + (date2.getFullYear());
                     const html = createCard(name, description, pictureUrl, start, end, location);
-                    const column = document.querySelector('.row');
+                    const column = document.querySelector('#col-' + count%3);
+                    // const column = document.getElementById('col-' + count%3);
+                    //These are same thing. first one uses id selector through the #
                     column.innerHTML += html;
+                    count++
                     }
                 }
             
