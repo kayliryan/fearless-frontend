@@ -1,4 +1,3 @@
-
 function createCard(name, description, pictureUrl, start, end, location) {
     return `
     <div class = ".card-columns">
@@ -59,8 +58,7 @@ window.addEventListener('DOMContentLoaded', async () => {
                     count++
                     }
                 }
-            
-        
+
             }
     } catch (e) {
         const html = `

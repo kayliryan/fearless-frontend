@@ -14,8 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const url = 'http://localhost:8000/login/';
     const response = await fetch(url, fetchOptions);
     if (response.ok) {
-        let navTag = document.querySelector('nav-link');
-        navTag.classList.remove("d-none");
         window.location.href = '/';
     } else {
         console.error(response);
