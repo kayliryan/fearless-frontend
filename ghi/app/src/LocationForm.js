@@ -20,6 +20,8 @@ class LocationForm extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         const data = {...this.state};
+        //we do the below because the JSON that's expected is room_count, snake case,
+        //but we are passing it camel case
         data.room_count = data.roomCount;
         delete data.roomCount;
         delete data.states;
@@ -36,7 +38,7 @@ class LocationForm extends React.Component {
         const response = await fetch(locationUrl, fetchConfig);
         if (response.ok) {
             const newLocation = await response.json();
-            console.log(newLocation);
+            // console.log(newLocation);
 
             //Clear the form
             const cleared = {
@@ -51,22 +53,22 @@ class LocationForm extends React.Component {
 
     handleNameChange(event) {
         const value = event.target.value;
-        this.setState({name: value})
+        this.setState({name: value});
     }
 
     handleRoomCountChange(event) {
         const value = event.target.value;
-        this.setState({roomCount: value})
+        this.setState({roomCount: value});
     }
 
     handleCityChange(event) {
         const value = event.target.value;
-        this.setState({city: value})
+        this.setState({city: value});
     }
 
     handleStateChange(event) {
         const value = event.target.value;
-        this.setState({state: value})
+        this.setState({state: value});
     }
 
     async componentDidMount() {
