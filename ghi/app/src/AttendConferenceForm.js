@@ -8,6 +8,7 @@ class AttendeeForm extends React.Component {
             name: "",
             email: "",
             conferences: [],
+            hasSignedUp: false,
         }
         this.handleConferenceChange = this.handleConferenceChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -19,6 +20,7 @@ class AttendeeForm extends React.Component {
         event.preventDefault();
         const data = {...this.state};
         delete data.conferences;
+        delete data.hasSignedUp;
 
         let attendeeUrl = `http://localhost:8001${data.conference}attendees/`
         let fetchConfig = {
@@ -39,8 +41,8 @@ class AttendeeForm extends React.Component {
                 conference: "",
                 name: "",
                 email: "",
+                hasSignedUp: true,
             }
-            this.setState(cleared);
         }
     }
 
@@ -76,7 +78,15 @@ class AttendeeForm extends React.Component {
         if (this.state.conferences.length > 0) {
             spinnerClasses = 'd-flex justify-content-center mb-3 d-none';
             dropdownClasses = 'form-select';
-}
+        }
+
+        let messageClasses = 'alert alert-success d-none mb-0';
+        let formClasses = '';
+        if (this.state.hasSignedUp) {
+            messageClasses = 'alert alert-success mb-0';
+            formClasses = 'd-none';
+        }
+
         return (
             <div className="my-5">
             <div className="row">
@@ -86,7 +96,7 @@ class AttendeeForm extends React.Component {
             <div className="col">
                 <div className="card shadow">
                 <div className="card-body">
-                    <form onSubmit={this.handleSubmit} id="create-attendee-form">
+                    <form className={formClasses} onSubmit={this.handleSubmit} id="create-attendee-form">
                     <h1 className="card-title">It's Conference Time!</h1>
                     <p className="mb-3">
                         Please choose which conference
@@ -128,7 +138,7 @@ class AttendeeForm extends React.Component {
                     </div>
                     <button className="btn btn-lg btn-primary">I'm going!</button>
                     </form>
-                    <div className="alert alert-success d-none mb-0" id="success-message">
+                    <div className={messageClasses} id="success-message">
                     Congratulations! You're all signed up!
                     </div>
                 </div>
