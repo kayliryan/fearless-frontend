@@ -42,7 +42,7 @@ class PresentationForm extends React.Component {
         let response = await fetch(presentationUrl, fetchConfig);
         if (response.ok) {
             const newPresentation = await response.json();
-            console.log(newPresentation);
+            // console.log(newPresentation);
             const cleared = {
                 presenterName: "",
                 presenterEmail: "",
@@ -92,7 +92,7 @@ class PresentationForm extends React.Component {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             this.setState({conferences: data.conferences});
         }
     }
